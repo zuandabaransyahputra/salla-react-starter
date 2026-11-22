@@ -1,0 +1,42 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "./app.scss";
+
+/* Arabic first: the Salla SDK sets the store font as `--font-main` and its Arabic face as
+   `--font-ar`; RTL pages use the Arabic one. */
+[dir="rtl"] {
+  --font-main: var(--font-ar);
+}
+
+/* The store font may not cover Latin (or may not load at all): fall back to system fonts that
+   cover Arabic script, never the browser's default serif. Same stack as Tailwind's `font-sans`. */
+body {
+  font-family: var(--font-main), system-ui, -apple-system, 'Segoe UI', Tahoma, 'Geeza Pro',
+    'Noto Sans Arabic', Roboto, Arial, sans-serif;
+}
+
+/* Reserve the scrollbar gutter on the viewport at all times. When a modal or
+   drawer locks scrolling (see below) the scrollbar goes away, but the reserved
+   gutter keeps the content box the same width — so the page never jumps.
+   Must live on <html>, which owns the viewport scrollbar. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Scroll lock while a drawer (engine adds `menu-opened`) or a Salla modal
+   (`salla-modal` adds `modal-is-open`) is open. */
+body.menu-opened,
+body.modal-is-open {
+  overflow: hidden;
+}
+
+/* Contain horizontal overflow from full-bleed blocks. `clip` doesn't create a
+   scroll container, so it won't affect the fixed header or dropdowns.
+   The explicit background matters in the Themes Editor, which renders the
+   storefront in an iframe whose own background would otherwise show through. */
+.app-inner {
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: clip;
+}

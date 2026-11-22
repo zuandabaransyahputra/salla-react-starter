@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.wrangler/
+wrangler.jsonc
+.env
+.env.*
+.DS_Store
+stats.html
+coverage/
+tsconfig.tsbuildinfo
+.tanstack/
+app/routeTree.gen.ts
+.lighthouse/
+.qa/
+twilight-preview-assets/

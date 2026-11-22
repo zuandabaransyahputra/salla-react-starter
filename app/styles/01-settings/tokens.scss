@@ -1,0 +1,51 @@
+/*
+ * Theme tokens. Components (app/components) read these through the Tailwind colour names in
+ * tailwind.config.cjs (`bg-surface`, `text-ink`, `border-line`, `bg-accent`…), never hex values,
+ * so a whole theme can be re-skinned here.
+ *
+ * The merchant's primary colour arrives as `--color-primary` (and `--color-primary-reverse`, a
+ * readable text colour on it), which the engine writes on <html> before first paint. The accent
+ * follows it, so the store's own colour drives buttons and highlights.
+ */
+
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface2: #f5f7f9;
+  --ink: #1d1f1f;
+  --muted: #5f6368;
+  --line: rgba(29, 31, 31, 0.12);
+
+  --accent: var(--color-primary, #414042);
+  --accent-ink: var(--color-primary-reverse, #ffffff);
+  // A tint of the store colour for hovers and selected rows; mixed in sRGB so muted text on it
+  // keeps its contrast even for a very dark primary colour.
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, #ffffff);
+
+  --danger: #ae0a0a;
+  --danger-ink: #ffffff;
+
+  --radius: 16px;
+  // Salla web components read only this token for their corner radius.
+  --s-radius: var(--radius);
+
+  // Container side padding (`.container` in tailwind.config.cjs).
+  --gutter: 16px;
+
+  color-scheme: light;
+}
+
+// Dark tokens for a theme that adds a dark mode (Tailwind `darkMode: 'class'`: put `dark` on
+// <html>, e.g. with the engine's `useDocumentClass`). Nothing in the starter turns it on.
+.dark {
+  --bg: #121314;
+  --surface: #1b1c1e;
+  --surface2: #26282a;
+  --ink: #f1f2f3;
+  --muted: #a9adb3;
+  --line: rgba(241, 242, 243, 0.14);
+  --accent-soft: color-mix(in oklab, var(--accent) 26%, #121314);
+  --danger: #ff7a72;
+  --danger-ink: #121314;
+  color-scheme: dark;
+}
